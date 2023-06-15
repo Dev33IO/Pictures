@@ -4020,32 +4020,6 @@ self["File"];const file=new FileCtor([arrayBuffer],filename,{"type":type});this.
 }
 
 {
-'use strict';{const C3=self.C3;C3.Plugins.BinaryData=class BinaryDataPlugin extends C3.SDKPluginBase{constructor(opts){super(opts)}Release(){super.Release()}}}{const C3=self.C3;C3.Plugins.BinaryData.Type=class BinaryDataType extends C3.SDKTypeBase{constructor(objectClass){super(objectClass)}Release(){super.Release()}OnCreate(){}}}
-{const C3=self.C3;const C3X=self.C3X;const IInstance=self.IInstance;const BASE64_DICTIONARY="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";C3.Plugins.BinaryData.Instance=class BinaryDataInstance extends C3.SDKInstanceBase{constructor(inst,properties){super(inst);this._buffer=new ArrayBuffer(0);this._view=null;this._altView=null;this._littleEndian=properties[0]===0;this._blobURL=null;this._setters=[[1,(o,v)=>this._view.setInt8(o,v)],[1,(o,v)=>this._view.setUint8(o,v)],[2,(o,v)=>
-this._view.setInt16(o,v,this._littleEndian)],[2,(o,v)=>this._view.setUint16(o,v,this._littleEndian)],[4,(o,v)=>this._view.setInt32(o,v,this._littleEndian)],[4,(o,v)=>this._view.setUint32(o,v,this._littleEndian)],[4,(o,v)=>this._view.setFloat32(o,v,this._littleEndian)],[8,(o,v)=>this._view.setFloat64(o,v,this._littleEndian)]];this._getters=[[1,o=>this._view.getInt8(o)],[1,o=>this._view.getUint8(o)],[2,o=>this._view.getInt16(o,this._littleEndian)],[2,o=>this._view.getUint16(o,this._littleEndian)],[4,
-o=>this._view.getInt32(o,this._littleEndian)],[4,o=>this._view.getUint32(o,this._littleEndian)],[4,o=>this._view.getFloat32(o,this._littleEndian)],[8,o=>this._view.getFloat64(o,this._littleEndian)]];this._UpdateViews()}_CheckValidIndex(index,size){return index>=0&&index+size<=this.ByteLength()}_ClampToLength(value){const l=this.ByteLength();if(value<0)return 0;if(value>=l)return l;return value}_ClampToValidIndex(value){const l=this.ByteLength();if(value<0)return 0;if(value>l)return l;return value}ByteLength(){return this._buffer.byteLength}_UpdateViews(){const B=
-this._buffer;this._view=new DataView(B);this._altView=new Uint8Array(B)}_GetBinaryDataSdkInstance(objectClass){if(!objectClass)return null;const target=objectClass.GetFirstPicked(this._inst);if(!target)return null;return target.GetSdkInstance()}_Get(type,offset){const getter=this._getters[type][1];const size=this._getters[type][0];if(this._CheckValidIndex(offset,size))return getter(offset);return 0}_Set(type,offset,value){const setter=this._setters[type][1];const size=this._setters[type][0];if(this._CheckValidIndex(offset,
-size))setter(offset,value)}_ResizeBuffer(source,length){if(!(source instanceof ArrayBuffer))throw new TypeError("Source must be an instance of ArrayBuffer");if(length<=source.byteLength)return source.slice(0,length);const sourceView=new Uint8Array(source);const destView=new Uint8Array(new ArrayBuffer(length));destView.set(sourceView);return destView.buffer}SetArrayBufferCopy(viewOrBuffer){if(C3.WeakIsInstanceOf(viewOrBuffer,ArrayBuffer))this._buffer=viewOrBuffer.slice(0);else{C3.WeakRequireTypedArray(viewOrBuffer);
-const buffer=viewOrBuffer.buffer;const byteLength=viewOrBuffer.byteLength;const byteOffset=viewOrBuffer.byteOffset;this._buffer=buffer.slice(byteOffset,byteOffset+byteLength)}this._UpdateViews()}SetArrayBufferTransfer(buffer){C3.WeakRequireInstanceOf(buffer,ArrayBuffer);this._buffer=buffer;this._UpdateViews()}GetArrayBufferCopy(){return this._buffer.slice(0)}GetArrayBufferReadOnly(){return this._buffer}TypedArrayToString(typedArray,utfLabel){let decoder=new TextDecoder(utfLabel||"utf-8");return decoder.decode(typedArray)}StringToArrayBuffer(str){let encoder=
-new TextEncoder("utf-8");return encoder.encode(str).buffer}Uint8ArrayToBase64String(uint8array){const read=i=>i<length?uint8array[i]:(padding++,0);const length=uint8array.length;const mask=63;const output=[];let padding=0;let i=0;while(i<length){const chunk=(read(i++)<<16)+(read(i++)<<8)+read(i++);output.push(BASE64_DICTIONARY[chunk>>>18&mask],BASE64_DICTIONARY[chunk>>>12&mask],BASE64_DICTIONARY[chunk>>>6&mask],BASE64_DICTIONARY[chunk&mask])}i=output.length-padding;while(i<output.length)output[i++]=
-"=";return output.join("")}Base64StringToUint8Array(str){const paddingIndex=str.indexOf("=");const originalLength=str.length;const alignedLength=originalLength>>2<<2;const alignmentOffset=originalLength-alignedLength;const padding=paddingIndex>-1?originalLength-paddingIndex:0;if(padding>2)throw new Error("Invalid padding");const isLegacy=alignedLength===paddingIndex;let unpaddedLength=originalLength;if(isLegacy)unpaddedLength=alignedLength-padding;else if(alignmentOffset===0&&paddingIndex>-1)unpaddedLength-=
-padding;const outputLength=unpaddedLength*3>>2;const output=new Uint8Array(outputLength);let readIndex=0;let writeIndex=0;const read=()=>{if(readIndex>=unpaddedLength)return 0;const n=str.charCodeAt(readIndex++);if(n>64&&n<91)return n-65;if(n>96&&n<123)return n-71;if(n>47&&n<58)return n+4;if(n===43)return 62;if(n===47)return 63;if(n===61)return 0;throw new Error(`Invalid character at column ${readIndex-1}`);};const push=v=>writeIndex<outputLength&&(output[writeIndex++]=v);while(writeIndex<outputLength){const chunk=
-(read()<<18)+(read()<<12)+(read()<<6)+read();push(chunk>>>16&255);push(chunk>>>8&255);push(chunk&255)}return output}GetScriptInterfaceClass(){return self.IBinaryDataInstance}};const map=new WeakMap;self.IBinaryDataInstance=class IBinaryDataInstance extends IInstance{constructor(){super();map.set(this,IInstance._GetInitInst().GetSdkInstance())}setArrayBufferCopy(viewOrBuffer){if(!(viewOrBuffer instanceof ArrayBuffer)&&!C3.IsTypedArray(viewOrBuffer))throw new TypeError("invalid parameter");map.get(this).SetArrayBufferCopy(viewOrBuffer)}setArrayBufferTransfer(arrayBuffer){if(!(arrayBuffer instanceof
-ArrayBuffer))throw new TypeError("invalid parameter");map.get(this).SetArrayBufferTransfer(arrayBuffer)}getArrayBufferCopy(){return map.get(this).GetArrayBufferCopy()}getArrayBufferReadOnly(){return map.get(this).GetArrayBufferReadOnly()}}}
-{const C3=self.C3;C3.Plugins.BinaryData.Cnds={CompareLength(operator,length){return C3.compare(this.ByteLength(),operator,length)},CompareValue(type,offset,operator,value){return C3.compare(this._Get(type,offset),operator,value)},OnCompressionFinished(){return true},OnCompressionFailed(){return true},OnDecompressionFinished(){return true},OnDecompressionFailed(){return true}}}
-{const C3=self.C3;const COMPRESSION_FORMATS=["deflate","gzip"];C3.Plugins.BinaryData.Acts={SetEndian(b){this._littleEndian=b===0},SetLength(byteLength){this._buffer=this._ResizeBuffer(this._buffer,byteLength);this._UpdateViews()},SetFromBase64(str){try{const view=this.Base64StringToUint8Array(str);this.SetArrayBufferTransfer(view.buffer)}catch(err){console.warn("[BinaryData] Invalid base64 string: ",err)}},SetFromBinaryData(objectClass){const otherSdkInst=this._GetBinaryDataSdkInstance(objectClass);
-if(otherSdkInst===null)return;const buffer=otherSdkInst.GetArrayBufferCopy();this.SetArrayBufferTransfer(buffer)},SetFromText(str){const arrayBuffer=this.StringToArrayBuffer(str.normalize());this.SetArrayBufferTransfer(arrayBuffer)},Fill(type,value,offset,length){const setter=this._setters[type][1];const size=this._setters[type][0];const start=this._ClampToLength(offset);let end=0;if(length===-1)end==this.ByteLength();else end=this._ClampToLength(start+length);if(end<=start)return;const correctedLength=
-Math.floor((end-start)/size)*size;end=start+correctedLength;for(let i=start;i<end;i+=size)setter(i,value)},Copy(objectClass,start,length,target){const otherSdkInst=this._GetBinaryDataSdkInstance(objectClass);if(otherSdkInst===null)return;target=this._ClampToValidIndex(target);start=otherSdkInst._ClampToLength(start);let end;if(length===-1)end=otherSdkInst.ByteLength();else end=otherSdkInst._ClampToLength(start+length);if(end<=start)return;const selfSize=this.ByteLength();if(target+end-start>selfSize){const capacity=
-selfSize-target;end=start+capacity;if(end<=start)return}if(otherSdkInst===this)this._altView.copyWithin(target,start,end);else{const sourceBuffer=otherSdkInst.GetArrayBufferReadOnly();const slicedView=new Uint8Array(sourceBuffer,start,end-start);this._altView.set(slicedView,target)}},SetValue(type,value,offset){this._Set(type,offset,value)},async Compress(format_){const format=COMPRESSION_FORMATS[format_];try{const cs=new CompressionStream(format);const blob=new Blob([this._buffer]);const compressedStream=
-blob.stream().pipeThrough(cs);const compressedArrayBuffer=await (new Response(compressedStream)).arrayBuffer();this.SetArrayBufferTransfer(compressedArrayBuffer);await this.TriggerAsync(C3.Plugins.BinaryData.Cnds.OnCompressionFinished)}catch(err){console.error(`[Binary data] Error compressing data as '${format}': `,err);await this.TriggerAsync(C3.Plugins.BinaryData.Cnds.OnCompressionFailed)}},async Decompress(format_){const format=COMPRESSION_FORMATS[format_];try{const dcs=new DecompressionStream(format);
-const blob=new Blob([this._buffer]);const decompressedStream=blob.stream().pipeThrough(dcs);const decompressedArrayBuffer=await (new Response(decompressedStream)).arrayBuffer();this.SetArrayBufferTransfer(decompressedArrayBuffer);await this.TriggerAsync(C3.Plugins.BinaryData.Cnds.OnDecompressionFinished)}catch(err){console.error(`[Binary data] Error decompressing data as '${format}': `,err);await this.TriggerAsync(C3.Plugins.BinaryData.Cnds.OnDecompressionFailed)}}}}
-{const C3=self.C3;const T={int8:0,uint8:1,int16:2,uint16:3,int32:4,uint32:5,float32:6,float64:7};C3.Plugins.BinaryData.Exps={GetURL(){if(this._blobURL!==null)URL.revokeObjectURL(this._blobURL);const blob=new Blob([this._altView],{type:""});const url=URL.createObjectURL(blob);this._blobURL=url;return url},GetBase64(){return this.Uint8ArrayToBase64String(this._altView)},ByteLength(){return this.ByteLength()},GetInt8(offset){return this._Get(T.int8,offset)},GetUint8(offset){return this._Get(T.uint8,
-offset)},GetInt16(offset){return this._Get(T.int16,offset)},GetUint16(offset){return this._Get(T.uint16,offset)},GetInt32(offset){return this._Get(T.int32,offset)},GetUint32(offset){return this._Get(T.uint32,offset)},GetFloat32(offset){return this._Get(T.float32,offset)},GetFloat64(offset){return this._Get(T.float64,offset)},GetText(offset,length){let result="";if(this._CheckValidIndex(offset,length)){const view=this._altView.subarray(offset,offset+length);try{result=this.TypedArrayToString(view)}catch(e){console.warn("[Binary data] Failed to decode text: ",
-e)}}return result},GetAllText(){try{return this.TypedArrayToString(this._altView)}catch(e){console.warn("[Binary data] Failed to decode text: ",e);return""}}}};
-
-}
-
-{
 'use strict';{const C3=self.C3;C3.Behaviors.Anchor=class AnchorBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts)}Release(){super.Release()}}}{const C3=self.C3;C3.Behaviors.Anchor.Type=class AnchorType extends C3.SDKBehaviorTypeBase{constructor(behaviorType){super(behaviorType)}Release(){super.Release()}OnCreate(){}}}
 {const C3=self.C3;const C3X=self.C3X;const IBehaviorInstance=self.IBehaviorInstance;const ANCHOR_LEFT=0;const ANCHOR_TOP=1;const ANCHOR_RIGHT=2;const ANCHOR_BOTTOM=3;const ENABLE=4;C3.Behaviors.Anchor.Instance=class AnchorInstance extends C3.SDKBehaviorInstanceBase{constructor(behInst,properties){super(behInst);this._anchorLeft=2;this._anchorTop=2;this._anchorRight=0;this._anchorBottom=0;this._isEnabled=true;const bbox=this._inst.GetWorldInfo().GetBoundingBox();this._xLeft=bbox.getLeft();this._yTop=
 bbox.getTop();this._xRight=this._runtime.GetOriginalViewportWidth()-bbox.getLeft();this._yBottom=this._runtime.GetOriginalViewportHeight()-bbox.getTop();this._rDiff=this._runtime.GetOriginalViewportWidth()-bbox.getRight();this._bDiff=this._runtime.GetOriginalViewportHeight()-bbox.getBottom();if(properties){this._anchorLeft=properties[ANCHOR_LEFT];this._anchorTop=properties[ANCHOR_TOP];this._anchorRight=properties[ANCHOR_RIGHT];this._anchorBottom=properties[ANCHOR_BOTTOM];this._isEnabled=!!properties[ENABLE]}const rt=
@@ -4099,7 +4073,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.LocalStorage,
 		C3.Plugins.Browser,
 		C3.Plugins.Share,
-		C3.Plugins.BinaryData,
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Plugins.PlatformInfo.Cnds.IsOnMobile,
 		C3.Plugins.System.Cnds.TriggerOnce,
@@ -4113,7 +4086,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.ScriptsInEvents.Egame_Event5_Act4,
 		C3.ScriptsInEvents.Egame_Event6_Act4,
 		C3.ScriptsInEvents.Egame_Event7_Act4,
-		C3.Plugins.Share.Acts.AddFile,
 		C3.Plugins.Share.Acts.Share,
 		C3.Plugins.System.Acts.GoToLayout
 	];
@@ -4137,7 +4109,6 @@ self.C3_JsPropNameTable = [
 	{Sprite2: 0},
 	{share: 0},
 	{Share2: 0},
-	{BinaryData: 0},
 	{Colors: 0},
 	{Pictures: 0}
 ];
@@ -4245,10 +4216,9 @@ self.C3_ExpressionFuncs = [
 			const n1 = p._GetNode(1);
 			return () => (f0("Control") - (n1.ExpObject() / 2));
 		},
-		() => "imagetest.svg",
-		() => "image/png",
 		() => "Твій малюнок",
-		() => ""
+		() => "Meww",
+		() => "imagetest.svg"
 ];
 
 
